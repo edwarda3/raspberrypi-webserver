@@ -1,0 +1,39 @@
+html{
+    background-color:rgb(243, 243, 243);
+}
+*{
+    font-family: Helvetica;
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: Times;
+}
+h1{
+    font-size:56px;
+}
+
+body{
+    margin: 0 auto;
+    margin-top:5px;
+    padding:10px;
+    width:90%;
+    font-size:24px;
+    text-align:center
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+input{
+    border-radius: 5px;
+    padding:7px;
+    margin:5px;
+    font-size: 75%;
+}
+
+.blockSection{
+    display:block;
+}

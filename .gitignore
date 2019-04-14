@@ -1,2 +1,5 @@
 node_modules/
 users.json
+audiofiles/
+songlist.txt
+__pycache__/

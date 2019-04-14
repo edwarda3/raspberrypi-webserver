@@ -34,7 +34,7 @@ app.get('/logout',function(req,res){
 });
 app.use(express.static('public'));
 
-
+var songStatus = {'isPlaying':false};
 
 io.on('connection',function(socket){
     socket.on('getLoggedStatus',function(){
@@ -43,7 +43,10 @@ io.on('connection',function(socket){
     socket.on('authenticate',function(userinfo){
         requests.authenticate(socket,userinfo);
     });
-    socket.on('button0',function(){
-        requests.button0(socket);
+    socket.on('button0',function(input){
+        requests.button0(socket,input);
+    });
+    socket.on('playRandomSong',function(input){
+        requests.playRandomSong(socket,songStatus);
     });
 });

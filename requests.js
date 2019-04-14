@@ -15,15 +15,56 @@ module.exports = {
         if(username!=null)
             socket.emit('loggedUserStatus',username);
     },
-    button0 : function(socket){
-        //var pyScript = './node-py-scripts/button0.py';
-        var pyScript = './button0.py';
-        console.log('Using '+pyScript);
+    button0 : function(socket,input){
+        var pyScript = 'node-py-scripts/button0.py';
         var spawn = require('child_process').spawn,
-            py = spawn('python',[pyScript]);
+            py = spawn('python3',[pyScript,input]);
+        var sum = 0.0;
 
+        //Read on stdout flushes
         py.stdout.on('data',function(data){
-            console.log(data.toString());
+            var humandata = data.toString();
+            console.log(humandata);
+            sum = parseFloat(humandata);
+            socket.emit('pythonres',humandata);
+        });
+        //Exec when program finishes execution.
+        py.stdout.on('end',function(){
+            console.log('Button 0 execution ENDED.');
+            socket.emit('sumToPiPower',sum);
+        });
+        //Errors to help debug
+        py.stderr.on('data',function(data){
+            var humandata = data.toString();
+            console.log('stderr: '+humandata);
+        });
+    },
+    playRandomSong : function(socket,songStatus){
+        var pyScript = 'node-py-scripts/playRandomSong.py';
+        if(songStatus.isPlaying){
+            console.log('Was playing... Killing and playing new');
+            songStatus.py.kill('SIGINT');
+        }
+        var spawn = require('child_process').spawn;
+        songStatus['py'] = spawn('python3',[pyScript,'node-py-scripts/']);
+        songStatus.isPlaying = true;
+        
+        songStatus.py.stdout.on('data',function(data){
+            var humandata = data.toString();
+            if(humandata.startsWith('S:'))
+                socket.emit('playbackStatus',humandata.substring(2))
+            else
+                socket.emit('playbackProgress',humandata.substring(2));
+        });
+        songStatus.py.stdout.on('end',function(){
+            console.log('Playback ENDED.');
+            songStatus.isPlaying=false;
+            socket.emit('playbackEnd');
+        });
+        //Errors to help debug
+        songStatus.py.stderr.on('data',function(data){
+            var humandata = data.toString();
+            console.log('stderr: '+humandata);
         });
     }
 }
