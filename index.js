@@ -28,6 +28,9 @@ app.get('/', function(req, res){
 app.get('/testing', function(req, res){
     res.sendFile(__dirname + '/public/testing.html' );
 });
+app.get('/music', function(req, res){
+    res.sendFile(__dirname + '/public/music.html' );
+});
 app.get('/logout',function(req,res){
     req.session.destroy();
     res.redirect('/');
