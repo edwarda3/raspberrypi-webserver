@@ -16,13 +16,14 @@ module.exports = {
             socket.emit('loggedUserStatus',username);
     },
     button0 : function(socket){
-        var spawn = require('child_process').spawn;
-        var scriptFolder = require('os').homedir()+'/node-py-scripts';
-        console.log("Looking at threads in "+scriptFolder);
-        var pyProc = spawn('python',[scriptFolder+'/button0.py']);
+        //var pyScript = './node-py-scripts/button0.py';
+        var pyScript = './button0.py';
+        console.log('Using '+pyScript);
+        var spawn = require('child_process').spawn,
+            py = spawn('python',[pyScript]);
 
-        pyProc.stdout.on('data',(data) => {
-            socket.emit('pythonres',data);
+        py.stdout.on('data',function(data){
+            console.log(data.toString());
         });
     }
 }
