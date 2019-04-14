@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>Raspberry Pi Webserver</title>
+    <link type="text/css" rel="stylesheet" href="/css/stylesheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <h1>Raspberry Pi Webserver</h1>
+
+    <main>
+    <input id="usernameInput" type="text" placeholder="Username"/><br>
+    <input id="passwordInput" type="password" placeholder="Password"/><br>
+    <button id="userInfoSubmit" type="button">Submit</button><br>
+    
+    <ul>
+        <li><a href="/">Index</a></li>
+        <li><a href="/testing">Testing</a></li>
+    </ul>
+
+    </main>
+    
+    <script type="text/javascript" src="/scripts/getuserstatus.js"></script>
+    <script type="text/javascript" src="/scripts/index.js"></script>
+</body>
+</html>
